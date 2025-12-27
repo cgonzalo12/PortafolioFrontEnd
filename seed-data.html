@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seed Data</title>
+</head>
+<body>
+    <h1>Poblando Base de Datos...</h1>
+    <div id="status"></div>
+    
+    <script>
+        const API_URL = 'https://localhost:7035/api';
+        const status = document.getElementById('status');
+        
+        async function seedData() {
+            try {
+                // Personal Info
+                await fetch(`${API_URL}/personalinfo`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: 1,
+                        fullName: "Juan Pérez",
+                        title: "Desarrollador Full Stack",
+                        email: "juan.perez@email.com",
+                        phone: "+54 11 1234-5678",
+                        location: "Buenos Aires, Argentina",
+                        bio: "Desarrollador Full Stack con 5 años de experiencia",
+                        linkedInUrl: "https://linkedin.com/in/juanperez",
+                        gitHubUrl: "https://github.com/juanperez"
+                    })
+                });
+                status.innerHTML += '✅ Personal Info creado<br>';
+                
+                // Experience 1
+                await fetch(`${API_URL}/experience`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        company: "Tech Solutions SA",
+                        position: "Senior Full Stack Developer",
+                        description: "Desarrollo de aplicaciones web",
+                        startDate: "2021-03-01",
+                        isCurrentJob: true,
+                        location: "Buenos Aires"
+                    })
+                });
+                status.innerHTML += '✅ Experience 1 creado<br>';
+                
+                // Skills
+                const skills = [
+                    { name: "C# / .NET", level: 5, category: "Backend" },
+                    { name: "React", level: 4, category: "Frontend" },
+                    { name: "Redis", level: 4, category: "Database" }
+                ];
+                
+                for (const skill of skills) {
+                    await fetch(`${API_URL}/skill`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(skill)
+                    });
+                }
+                status.innerHTML += '✅ Skills creados<br>';
+                
+                // Project
+                await fetch(`${API_URL}/project`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: "Portfolio CV",
+                        description: "Sistema de portfolio moderno",
+                        technologies: "C#, Redis, Bootstrap",
+                        gitHubUrl: "https://github.com/usuario/portfolio"
+                    })
+                });
+                status.innerHTML += '✅ Project creado<br>';
+                
+                // Education
+                await fetch(`${API_URL}/education`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        institution: "Universidad de Buenos Aires",
+                        degree: "Ingeniería en Sistemas",
+                        fieldOfStudy: "Desarrollo de Software",
+                        startDate: "2015-03-01",
+                        endDate: "2019-12-15"
+                    })
+                });
+                status.innerHTML += '✅ Education creado<br>';
+                
+                status.innerHTML += '<br><h2>✅ ¡Datos poblados correctamente!</h2>';
+                status.innerHTML += '<p>Recarga tu portfolio: <a href="index.html">index.html</a></p>';
+                
+            } catch (error) {
+                status.innerHTML += `<br>❌ Error: ${error.message}`;
+            }
+        }
+        
+        seedData();
+    </script>
+</body>
+</html>
