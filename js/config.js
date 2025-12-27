@@ -4,7 +4,7 @@
 
 const CONFIG = {
     // URL base de tu API (HTTPS)
-    API_BASE_URL: 'https://portafolio-x5gx.onrender.com/api',
+    API_BASE_URL: 'https://portafolio-1-1xku.onrender.com//api',
     
     // Endpoints
     ENDPOINTS: {
